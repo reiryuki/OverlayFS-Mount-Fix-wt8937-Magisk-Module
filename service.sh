@@ -1,89 +1,45 @@
 MODPATH=${0%/*}
 
 # log
-LOGFILE=$MODPATH/debug.log
-exec 2>$LOGFILE
+exec 2>$MODPATH/debug.log
 set -x
 
-# var
-API=`getprop ro.build.version.sdk`
+# function
+mount_bind_files() {
+FILES=`find $SRC -type f`
+if [ -d $TAR ]\
+&& [ "`realpath $TAR`" == $TAR ]; then
+  for FILE in $FILES; do
+    DES=`echo $FILE | sed "s|$SRC|$TAR|g"`
+    if [ -f $DES ]; then
+      umount $DES
+      mount -o bind $FILE $DES
+    fi
+  done
+fi
+}
 
 # mount
 HARDWARE=wt8937-n-camera
 DEVICE=`getprop ro.vendor.xiaomi.device`
-DIR=/vendor/etc/overlayfs/$HARDWARE/camera
-FILES=`find $DIR -type f`
-if [ -d /odm/etc/camera ]\
-&& [ "`realpath /odm/etc/camera`" == /odm/etc/camera ]; then
-  for FILE in $FILES; do
-    DES=`echo $FILE | sed "s|$DIR|/odm/etc/camera|g"`
-    if [ -f $DES ]; then
-      umount $DES
-      mount -o bind $FILE $DES
-    fi
-  done
-fi
-DIR=/vendor/etc/overlayfs/$DEVICE/camera
-FILES=`find $DIR -type f`
-if [ -d /odm/etc/camera ]\
-&& [ "`realpath /odm/etc/camera`" == /odm/etc/camera ]; then
-  for FILE in $FILES; do
-    DES=`echo $FILE | sed "s|$DIR|/odm/etc/camera|g"`
-    if [ -f $DES ]; then
-      umount $DES
-      mount -o bind $FILE $DES
-    fi
-  done
-fi
-DIR=/vendor/lib/overlayfs/$HARDWARE
-FILES=`find $DIR -type f`
-if [ -d /odm/lib ]\
-&& [ "`realpath /odm/lib`" == /odm/lib ]; then
-  for FILE in $FILES; do
-    DES=`echo $FILE | sed "s|$DIR|/odm/lib|g"`
-    if [ -f $DES ]; then
-      umount $DES
-      mount -o bind $FILE $DES
-    fi
-  done
-fi
-DIR=/vendor/lib/overlayfs/$DEVICE
-FILES=`find $DIR -type f`
-if [ -d /odm/lib ]\
-&& [ "`realpath /odm/lib`" == /odm/lib ]; then
-  for FILE in $FILES; do
-    DES=`echo $FILE | sed "s|$DIR|/odm/lib|g"`
-    if [ -f $DES ]; then
-      umount $DES
-      mount -o bind $FILE $DES
-    fi
-  done
-fi
-DIR=/vendor/lib64/overlayfs/$HARDWARE
-FILES=`find $DIR -type f`
-if [ -d /odm/lib64 ]\
-&& [ "`realpath /odm/lib64`" == /odm/lib64 ]; then
-  for FILE in $FILES; do
-    DES=`echo $FILE | sed "s|$DIR|/odm/lib64|g"`
-    if [ -f $DES ]; then
-      umount $DES
-      mount -o bind $FILE $DES
-    fi
-  done
-fi
-DIR=/vendor/lib64/overlayfs/$DEVICE
-FILES=`find $DIR -type f`
-if [ -d /odm/lib64 ]\
-&& [ "`realpath /odm/lib64`" == /odm/lib64 ]; then
-  for FILE in $FILES; do
-    DES=`echo $FILE | sed "s|$DIR|/odm/lib64|g"`
-    if [ -f $DES ]; then
-      umount $DES
-      mount -o bind $FILE $DES
-    fi
-  done
-fi
+SRC=/vendor/etc/overlayfs/$HARDWARE/camera
+TAR=/odm/etc/camera
+mount_bind_files
+SRC=/vendor/etc/overlayfs/$DEVICE/camera
+[ "$DEVICE" ] && mount_bind_files
+SRC=/vendor/lib/overlayfs/$HARDWARE
+TAR=/odm/lib
+mount_bind_files
+SRC=/vendor/lib/overlayfs/$DEVICE
+[ "$DEVICE" ] && mount_bind_files
+SRC=/vendor/lib64/overlayfs/$HARDWARE
+TAR=/odm/lib64
+mount_bind_files
+SRC=/vendor/lib64/overlayfs/$DEVICE
+[ "$DEVICE" ] && mount_bind_files
 killall mm-qcamera-daemon
+
+
 
 
 
