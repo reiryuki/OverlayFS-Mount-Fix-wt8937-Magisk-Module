@@ -20,24 +20,29 @@ fi
 }
 
 # mount
-HARDWARE=wt8937-n-camera
-DEVICE=`getprop ro.vendor.xiaomi.device`
-SRC=/vendor/etc/overlayfs/$HARDWARE/camera
+HARD=wt8937
+DEV=`getprop ro.vendor.xiaomi.device`
+SRC=/vendor/etc/overlayfs/$HARD/camera
 TAR=/odm/etc/camera
 mount_bind_files
-SRC=/vendor/etc/overlayfs/$DEVICE/camera
-[ "$DEVICE" ] && mount_bind_files
-SRC=/vendor/lib/overlayfs/$HARDWARE
+SRC=/vendor/etc/overlayfs/$DEV/camera
+[ "$DEV" ] && mount_bind_files
+SRC=/vendor/etc/overlayfs/$HARD/sensors
+TAR=/vendor/etc/sensors
+mount_bind_files
+SRC=/vendor/etc/overlayfs/$DEV/sensors
+[ "$DEV" ] && mount_bind_files
+SRC=/vendor/lib/overlayfs/$HARD-n-camera
 TAR=/odm/lib
 mount_bind_files
-SRC=/vendor/lib/overlayfs/$DEVICE
-[ "$DEVICE" ] && mount_bind_files
-SRC=/vendor/lib64/overlayfs/$HARDWARE
+SRC=/vendor/lib/overlayfs/$DEV
+[ "$DEV" ] && mount_bind_files
+SRC=/vendor/lib64/overlayfs/$HARD-n-camera
 TAR=/odm/lib64
 mount_bind_files
-SRC=/vendor/lib64/overlayfs/$DEVICE
-[ "$DEVICE" ] && mount_bind_files
-killall mm-qcamera-daemon
+SRC=/vendor/lib64/overlayfs/$DEV
+[ "$DEV" ] && mount_bind_files
+killall sensors.qti mm-qcamera-daemon
 
 
 

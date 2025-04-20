@@ -1,10 +1,10 @@
-# OverlayFS Mount Fix wt8937-n-camera Magisk Module
+# OverlayFS Mount Fix wt8937 Magisk Module
 
 ## Descriptions
-- Fixes overlayfs mount failure caused by Magisk modules conflict which causes camera crash and unusable flashlight for wt8937-n-camera type only like this ROM: https://t.me/mi_msm8937/1092 for example
+- Fixes overlayfs mount failure caused by Magisk modules conflict which causes camera crash and unusable flashlight for wt8937 type only like this ROM: https://t.me/mi_msm8937/1092 for example
 
 ## Requirements
-- /vendor/etc/overlayfs/wt8937-n-camera or /vendor/lib/overlayfs/wt8937-n-camera or /vendor/lib64/overlayfs/wt8937-n-camera in original vendor partition
+- /vendor/etc/overlayfs/wt8937 or /vendor/lib/overlayfs/wt8937-n-camera or /vendor/lib64/overlayfs/wt8937-n-camera in original vendor partition
 - Magisk/KernelSU/Apatch/Kitsune Mask installed
 
 ## Installation Guide & Download Link

@@ -1,8 +1,8 @@
 id=OverlayFSMountFix
-name=OverlayFS Mount Fix wt8937-n-camera
-version=v0.2
-versionCode=2
+name=OverlayFS Mount Fix wt8937
+version=v0.3
+versionCode=3
 author=Rei Ryuki the Fixer
-description=Fixes overlayfs mount failure caused by Magisk modules conflict which causes camera crash and unusable flashlight for wt8937-n-camera type only like this ROM: https://t.me/mi_msm8937/1092 for example.
+description=Fixes overlayfs mount failure caused by Magisk modules conflict which causes camera crash and unusable flashlight for wt8937 type only like this ROM: https://t.me/mi_msm8937/1092 for example.
 
 

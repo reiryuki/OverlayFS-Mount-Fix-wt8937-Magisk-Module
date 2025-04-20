@@ -177,13 +177,13 @@ elif [ -d $DIR ]\
 fi
 
 # check
-HARDWARE=wt8937-n-camera
-DIR=$VENDOR/etc/overlayfs/$HARDWARE
-DIR2=$VENDOR/lib/overlayfs/$HARDWARE
-DIR2=$VENDOR/lib64/overlayfs/$HARDWARE
+HARD=wt8937
+DIR=$VENDOR/etc/overlayfs/$HARD
+DIR2=$VENDOR/lib/overlayfs/$HARD-n-camera
+DIR3=$VENDOR/lib64/overlayfs/$HARD-n-camera
 if [ ! -d $DIR ] && [ ! -d $DIR2 ] && [ ! -d $DIR3 ]; then
   unmount_mirror
-  abort "! $VENDOR/*/overlayfs/$HARDWARE not found"
+  abort "! $VENDOR/*/overlayfs/$HARD* not found"
 else
   unmount_mirror
 fi
